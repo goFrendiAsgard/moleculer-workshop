@@ -1,0 +1,105 @@
+// packets.proto
+package packets;
+syntax = "proto3";
+
+message PacketEvent {
+	required string ver 	= 1;
+	required string sender 	= 2;
+	required string event 	= 3;
+	optional string data 	= 4;
+	repeated string groups 	= 5;
+	required bool broadcast	= 6;
+}
+
+message PacketRequest {
+	required string ver 		= 1;
+	required string sender 		= 2;
+	required string id 			= 3;
+	required string action 		= 4;
+	optional bytes params 		= 5;
+	required string meta 		= 6;
+	required double timeout		= 7;
+	required int32 level 		= 8;
+	optional bool metrics 		= 9;
+	optional string parentID 	= 10;
+	optional string requestID 	= 11;
+	optional bool stream 		= 12;
+}
+
+message PacketResponse {
+	required string ver 		= 1;
+	required string sender 		= 2;
+	required string id 			= 3;
+	required bool success 		= 4;
+	optional bytes data 		= 5;
+	optional string error 		= 6;
+	required string meta 		= 7;
+	optional bool stream 		= 8;
+}
+
+message PacketDiscover {
+	required string ver 		= 1;
+	required string sender 		= 2;
+}
+
+message PacketInfo {
+	required string ver 			= 1;
+	required string sender 			= 2;
+	required string services		= 3;
+	required string config			= 4;
+
+	repeated string ipList			= 5;
+	required string hostname		= 6;
+	required Client client 			= 7;
+
+	message Client {
+		required string type 			= 1;
+		required string version 		= 2;
+		required string langVersion 	= 3;
+	}
+}
+
+message PacketDisconnect {
+	required string ver 	= 1;
+	required string sender 	= 2;
+}
+
+message PacketHeartbeat {
+	required string ver 		= 1;
+	required string sender 		= 2;
+	required double cpu 		= 3;
+}
+
+message PacketPing {
+	required string ver 		= 1;
+	required string sender 		= 2;
+	required int64 time 		= 3;
+}
+
+message PacketPong {
+	required string ver 		= 1;
+	required string sender 		= 2;
+	required int64 time 		= 3;
+	required int64 arrived 		= 4;
+}
+
+message PacketGossipHello {
+	required string ver 		= 1;
+	required string sender 		= 2;
+	required string host 		= 3;
+	required int32 port 		= 4;
+}
+
+message PacketGossipRequest {
+	required string ver 			= 1;
+	required string sender 			= 2;
+	optional string online			= 3;
+	optional string offline			= 4;
+}
+
+message PacketGossipResponse {
+	required string ver 			= 1;
+	required string sender 			= 2;
+	optional string online			= 3;
+	optional string offline			= 4;
+}
